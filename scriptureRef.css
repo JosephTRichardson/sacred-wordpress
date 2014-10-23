@@ -1,0 +1,75 @@
+/**
+ * scriptureRef.css: Styling for scriptureTooltip.js's tooltips.
+  * 
+ * @package Sacred Wordpress
+ */
+ 
+span.scriptureRef {
+    color: navy;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.scriptureCopyright {
+    /* Just the 'copyright info' pseudo-link;
+     * actual copyright info will be tooltip */
+    font-size: 0.8em;
+    margin-top: 0.6em;
+    margin-bottom: 0.7em;
+}
+
+.scriptureText {
+    font-family: 'Old Style', serif;
+    margin-bottom: 0.5em;
+    margin-top: 0.6em;
+}
+
+.scriptureText sup.v {
+    margin-left: 0.5ex;
+    margin-right: 0.5ex;
+    font-size: 0.7em;
+    font-family: 'Arial', sans-serif;
+}
+
+.scripturePoetry1, .scripturePoetry2 {
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+.scripturePoetry2 {
+    text-indent: 5ex;
+}
+
+.scriptureVerseHead {
+    font-size: 1em;
+    /*font-family: 'Times New Roman', 'Transitional', sans-serif;*/
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 0.7em;
+    margin-top: 0.7em;
+}
+
+.scriptureVerseHead .version {
+    font-size: .7em;
+}
+
+.scriptureHeading {
+    font-size: 1em;
+    font-family: 'Times New Roman', 'Transitional', sans-serif;
+    margin-bottom: 0.7em;
+    margin-top: 0.7em;
+    font-weight: bold;
+}
+
+.scriptureLinkMenuPanel {
+    float: right;
+    position: relative;
+    /*top: -10px;*/
+    bottom: 5px;
+}
+
+.scriptureLinkMenuTitle {
+    font-variant: small-caps;
+    font-size: 0.8em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
