@@ -40,7 +40,7 @@ function tag_scriptures_in_the_content_filter( $content ) {
  * Implements WordPress filter 'comment_text'
  */
 function tag_scriptures_in_comment_text_filter( $comment_text ) {
-    $scriptureMarkup = new ScriptureMarkup($content);
+    $scriptureMarkup = new ScriptureMarkup($comment_text);
     $comment_text = $scriptureMarkup->tag_text();  // in tag_scripture.php
     return $comment_text;
 }
