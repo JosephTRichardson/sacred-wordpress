@@ -228,7 +228,7 @@ class ScriptureMarkup {
                 if ($matches[1]) { $this->last_book = $book; }
                 if ($i == 0) { # The first one, with the book reference
                     $replace = "<span class=\"scriptureRef\"" . 
-                        ($flagstr ? " flags=\"$flagstr\"" : "") .
+                        ($flagstr ? " data-scriptureref-flags=\"$flagstr\"" : "") .
                         " ref=\"$ref\">" .
                         ($matches[1] ? $matches[1] . " " : "") .
                             $verse . "</span>";
@@ -238,7 +238,7 @@ class ScriptureMarkup {
                         $replace, $return_string);
                 } else { # Just the verse reference
                     $replace = "<span class=\"scriptureRef\"" . 
-                        ($flagstr ? " flags=\"$flagstr\"" : "") .
+                        ($flagstr ? " data-scriptureref-flags=\"$flagstr\"" : "") .
                         " ref=\"$ref\">" . $verse . "</span>";
                     $return_string = str_replace($verse, $replace, $return_string);
                 }
