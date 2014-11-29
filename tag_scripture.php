@@ -84,12 +84,12 @@ class ScriptureMarkup {
                (  # First capture group: The name of the book
                     # The numeric prefix, e.g. *1* Corinthians
                     (?:(?:[1-4]|(?:I|II|III|IV)|(?:1st|2nd|3rd|4th)
-                        |(?:First|Second|Third|Fourth))\b\ )?
+                        |(?:First|Second|Third|Fourth))\b\s)?
 
                     # The first word of the title, first letter capital
                     (?:[A-Z][a-z]+\b\.?)
                     # Additional words of the title (up to two more)
-                    (?:\ (?:[oO]f(?:\ [tT]he)?|[A-Z][a-z]+)\b\.?){0,2}
+                    (?:\s(?:[oO]f(?:\s[tT]he)?|[A-Z][a-z]+)\b\.?){0,2}
                         #    Must begin in capital or be the word 'of'
                )
                \s?  # A space between the book name and the chapter-verse
@@ -110,26 +110,26 @@ class ScriptureMarkup {
                         # Or a possible range of chapters
                         (?:[-\x{2013}]\d+)?
                    )
-                   (?:,\ *   # A comma or other separator between refs
-                     |\ and\   # Allow for cases e.g. 'John 6:37 and 10:27–30x'
-                     |\ or\
+                   (?:,\s*   # A comma or other separator between refs
+                     |\sand\s  # Allow for cases e.g. 'John 6:37 and 10:27–30x'
+                     |\sor\s
                    )?
                    # But don't match the next one if it appears to be
                    #   another book.
-                   (?!\ (?:[1-4]\ )?[A-Z][a-z]+)
+                   (?!\s(?:[1-4]\s)?[A-Z][a-z]+)
                  )+  # But if possible, match a whole string of refs
                )   
            |
                (  # Even if we don't find a book name, there still
                   #   might be something to match
                   #   (as third capture group)
-                  (?<=v\.\ )  # Look-behind to v. (verse) or vv. (verses)
+                  (?<=v\.\s)  # Look-behind to v. (verse) or vv. (verses)
                     \d+    # A verse number
                       (?:[-\x{2013}]  # Or possible range of verses
                         \d+
                       )?
-                      (?:,\ ?\d+      # Or single verses separated by commas
-                        (?!\ +[A-Z][a-z]+)  # But not another book name
+                      (?:,\s?\d+      # Or single verses separated by commas
+                        (?!\s+[A-Z][a-z]+)  # But not another book name
                       )*
                )
            )
@@ -178,7 +178,7 @@ class ScriptureMarkup {
             $versestr = preg_replace('/ and | or /', ', ', $matches[2]);
                 # 'and' or 'or' in the string is really a list separator
                 #   e.g. John 6:37–40 and 10:27–30
-            $verses = preg_split('/(?:,\ *)(?=\d+[.:]|$)/', $versestr);
+            $verses = preg_split('/(?:,\s*)(?=\d+[.:]|$)/', $versestr);
                 # Look-ahead to be sure we don't split at compound verse
                 #   references, e.g. John 3:3,5.
                 # Only split at full chapter:verse references,
