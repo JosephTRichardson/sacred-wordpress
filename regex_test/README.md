@@ -11,7 +11,7 @@ The files:
 
 File                 | Description
 ---------------------| ------------------------------------------------------------------------
- `BibleBooks.pm`     | A port to Perl of biblebooks.php, containing data on Bible book titles.
+ `BibleBooks.pm`     | A port to Perl of `biblebooks.php`, containing data on Bible book titles.
  `peterpope.html`    | Large sample blog text for testing.
  `raw_matches.pl`    | A list of Scripture matches from `peterpope.html` for use in testing replacement routines apart from matching.
  `swp_regex.pl`      | Regex and replacement routines at beginning of optimization.
