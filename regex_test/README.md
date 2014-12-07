@@ -23,7 +23,6 @@ File                 | Description
  `swp_regex_rev3.pl` | Third revision: Cleaning up a messy segment in the book name match.
  `tag_scripture_time.php` | Modification of `tag_scripture.php` for testing and timing regex under PHP.
  `tag_scripture_pass.php` | Modification of `tag_scripture_time.php` for passing Scripture matching and replacement out to a Perl process via pipe.
--------------------------------------------------------------------------------------------------
 
-Copyright 2014, Joseph T. Richardson (LonelyPilgrim @ GitHub)
+Copyright 2014, Joseph T. Richardson (LonelyPilgrim @ GitHub).
 All code is released freely under the [MIT License] (http://opensource.org/licenses/MIT).
