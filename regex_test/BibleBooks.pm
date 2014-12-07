@@ -316,34 +316,34 @@ $BIBLEBOOKS{'DEUTERO'} = {
 
 
 sub map_books {
-	my $books = $_[0];
-	foreach my $book (@$books) {
-		$BIBLEBOOKS{'BOOKS'}->{$book} = $book;
-	}
+    my $books = $_[0];
+    foreach my $book (@$books) {
+        $BIBLEBOOKS{'BOOKS'}->{$book} = $book;
+    }
 }
 
 sub map_alt {
-	my $books = $_[0];
-	foreach my $alt (keys $books) {
-		my $book = $books->{$alt};
-		$BIBLEBOOKS{'BOOKS'}->{$alt} = $book;
-	}
+    my $books = $_[0];
+    foreach my $alt (keys $books) {
+        my $book = $books->{$alt};
+        $BIBLEBOOKS{'BOOKS'}->{$alt} = $book;
+    }
 }
 
 sub map_abbrevs  {
-	my $all_abbrevs = $_[0];
-	foreach my $book (keys $all_abbrevs) {
-		my $abbrevs = $all_abbrevs->{$book};
-		foreach my $abbrev (@$abbrevs) {
-			$BIBLEBOOKS{'BOOKS'}->{$abbrev} = $book;
-		}
-	}
+    my $all_abbrevs = $_[0];
+    foreach my $book (keys $all_abbrevs) {
+        my $abbrevs = $all_abbrevs->{$book};
+        foreach my $abbrev (@$abbrevs) {
+            $BIBLEBOOKS{'BOOKS'}->{$abbrev} = $book;
+        }
+    }
 }
 
 sub prepare_book_maps {
-	$BIBLEBOOKS{'BOOKS'} = {};
-	map_books($BIBLEBOOKS{'BOOKS_OT'});
-	map_books($BIBLEBOOKS{'BOOKS_NT'});
-	map_alt($BIBLEBOOKS{'ALT_NAMES'});
-	map_abbrevs($BIBLEBOOKS{'ABBREVS'});
+    $BIBLEBOOKS{'BOOKS'} = {};
+    map_books($BIBLEBOOKS{'BOOKS_OT'});
+    map_books($BIBLEBOOKS{'BOOKS_NT'});
+    map_alt($BIBLEBOOKS{'ALT_NAMES'});
+    map_abbrevs($BIBLEBOOKS{'ABBREVS'});
 }

@@ -13,11 +13,11 @@ $times = array();
      
 $t = 100;
 for ($i = 0; $i < $t; ++$i) {
-	$starttime = microtime(true);
-	$scriptureMarkup->tag_text($text);
-	$endtime = microtime(true);
-	$times[] = $endtime - $starttime;
-	#echo $scriptureMarkup->get_text();
+    $starttime = microtime(true);
+    $scriptureMarkup->tag_text($text);
+    $endtime = microtime(true);
+    $times[] = $endtime - $starttime;
+    #echo $scriptureMarkup->get_text();
 }
 
 $average = array_sum($times) / count($times);
