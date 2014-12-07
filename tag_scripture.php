@@ -89,8 +89,7 @@ class ScriptureMarkup {
                     # The first word of the title, first letter capital
                     (?:[A-Z][a-z]+\b\.?)
                     # Additional words of the title (up to two more)
-                    (?:\s(?:[oO]f(?:\s[tT]he)?|[A-Z][a-z]+)\b\.?){0,2}
-                        #    Must begin in capital or be the word 'of'
+                    (?:\s[oO]f(?:\s[tT]he)?\s[A-Z][a-z]+\.?)?
                )
                \s?  # A space between the book name and the chapter-verse
                (  # Second capture group: The chapter-verse
@@ -119,19 +118,6 @@ class ScriptureMarkup {
                    (?!\s(?:[1-4]\s)?[A-Z][a-z]+)
                  )+  # But if possible, match a whole string of refs
                )   
-           |
-               (  # Even if we don't find a book name, there still
-                  #   might be something to match
-                  #   (as third capture group)
-                  (?<=v\.\s)  # Look-behind to v. (verse) or vv. (verses)
-                    \d+    # A verse number
-                      (?:[-\x{2013}]  # Or possible range of verses
-                        \d+
-                      )?
-                      (?:,\s?\d+      # Or single verses separated by commas
-                        (?!\s+[A-Z][a-z]+)  # But not another book name
-                      )*
-               )
            )
            \b
            (?![^<]+>)    # This should make sure we weren't in the middle
@@ -194,6 +180,7 @@ class ScriptureMarkup {
         $return_string = $matches[0]; # The whole matched string
         $i = -1;
         foreach ($verses as $verse) {
+            $matched_verse = $verse;
             $i++; # So will be 0 on first iteration (index of $verses)
             if ($this->debug) {
                 print "<!-- verse match [$i]: '$verse' -->\n";
@@ -205,7 +192,7 @@ class ScriptureMarkup {
             if (! $book) {
                 # If we didn't match a book name,
                 #   then assume the last named reference
-                if (! $this->last_book) { goto FAIL; }
+                if (! $this->last_book) { continue; }
                 if ($this->debug) {
                     print "<!-- No \$1 match, trying '$last_book' -->\n";
                 }
@@ -216,7 +203,7 @@ class ScriptureMarkup {
                     if ($this->debug) {
                         print "<!-- Chapterless reference. Is chapter '$last_chapter'? -->\n";
                     }
-                    if (! $this->last_chapter) { goto FAIL; }
+                    if (! $this->last_chapter) { continue; }
                     $verse = $this->last_chapter . ":$verse";
                     $flags[] = "chapter_inferred";
                 }
@@ -229,18 +216,18 @@ class ScriptureMarkup {
                 if ($i == 0) { # The first one, with the book reference
                     $replace = "<span class=\"scriptureRef\"" . 
                         ($flagstr ? " data-scriptureref-flags=\"$flagstr\"" : "") .
-                        " ref=\"$ref\">" .
+                        " data-scriptureref=\"$ref\">" .
                         ($matches[1] ? $matches[1] . " " : "") .
-                            $verse . "</span>";
+                            $matched_verse . "</span>";
                     $return_string = str_replace(
                         # Also match the book reference here if it exists
-                        ($matches[1] ? $matches[1] . " " : "") . $verse,
+                        ($matches[1] ? $matches[1] . " " : "") . $matched_verse,
                         $replace, $return_string);
                 } else { # Just the verse reference
                     $replace = "<span class=\"scriptureRef\"" . 
                         ($flagstr ? " data-scriptureref-flags=\"$flagstr\"" : "") .
-                        " ref=\"$ref\">" . $verse . "</span>";
-                    $return_string = str_replace($verse, $replace, $return_string);
+                        " data-scriptureref=\"$ref\">" . $matched_verse . "</span>";
+                    $return_string = str_replace($matched_verse, $replace, $return_string);
                 }
                 if ($this->debug) {
                     print "<!-- \$replace = '$replace' -->\n";
