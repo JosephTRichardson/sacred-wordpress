@@ -80,8 +80,8 @@ var scriptureTooltip = {
         
         /* For each element classed 'scriptureRef', gather the reference
          * into the array. */
-        jQuery(".scriptureRef[ref]").each(function() {
-            scriptureList.push(jQuery(this).attr("ref"));
+        jQuery(".scriptureRef[data-scriptureref]").each(function() {
+            scriptureList.push(jQuery(this).attr("data-scriptureref"));
         });
         
         return scriptureList;
@@ -138,14 +138,14 @@ var scriptureTooltip = {
     setTooltips: function (json) {
         "use strict";       
         
-        jQuery(".scriptureRef[ref]").each(function() {
+        jQuery(".scriptureRef[data-scriptureref]").each(function() {
             var ref, text, $html, url, version, $copyrightInfo;
             
             if (scriptureTooltip.debug) {
                 console.log(this);
             }
 
-            ref = jQuery(this).attr("ref");
+            ref = jQuery(this).attr("data-scriptureref");
             url = scriptureTooltip.getDefaultLink(ref);
             
             if (scriptureTooltip.debug) {
@@ -244,7 +244,7 @@ var scriptureTooltip = {
         "use strict";
         jQuery(".scriptureRef").wrap(function() {
             var ref, url;
-            ref = jQuery(this).attr("ref");
+            ref = jQuery(this).attr("data-scriptureref");
             url = this.getDefaultLink(ref);
             return '<a class="scriptureLink" href="' + url + '"></a>';
         });
