@@ -39,6 +39,10 @@ class BiblesOrg_Request {
      */
     private function init_curl() {
         $apikey = $this->APIKEY;
+        if ($apikey == str_repeat('X', 40)) {
+            throw new Exception("Invalid API key. " . 
+                "Did you forget to insert it?");
+        }
         $ch = curl_init();
         // Don't verify SSL certificate.
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
