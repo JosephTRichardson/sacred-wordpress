@@ -80,7 +80,15 @@ class ScriptureMarkup {
         $text = preg_replace_callback(
           "/\b    # Match a word boundary --
                   #   shouldn't be a part of anything else
-           (?:
+           (?|
+               (?i:<span[^>]+
+                 class=\"[^\x22]*scriptureRef[^\x22]*\"   # The scriptureRef class and
+                                                          #   any others
+                 [^>]*>      # Anything until the close of the tag
+                   (.*?)     # Everything until the next close-span, non-greedy
+                 <\/span>    # Hope we don't have nested spans; that would be screwy
+               )             # Match that if it's there
+           |
                (  # First capture group: The name of the book
                     # The numeric prefix, e.g. *1* Corinthians
                     (?:(?:[1-4]|(?:I|II|III|IV)|(?:1st|2nd|3rd|4th)
